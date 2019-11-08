@@ -52,7 +52,38 @@ public class ArraysAndStrings {
 	}
 	
 	
-	
+	/*
+	 * 1.3 URLify: Write a method to replace all spaces in a string with '%20'. You may assume that the string
+		has sufficient space at the end to hold the additional characters, and that you are given the "true"
+		length of the string. (Note: If implementing in Java, please use a character array so that you can
+		perform this operation in place.)
+		EXAMPLE
+		Input: "Mr 3ohn Smit h 13
+	 	Output: "Mr%203ohn%20Smith" 
+	 */
+	public String uRLify(String string1) {
+		char[] charArrIn = string1.toCharArray();
+		//new char array needs to be 3 times the length in case all chars were spaces
+		char[] charArrOut = new char[charArrIn.length * 3];
+		int currentCharIndex = 0;
+		
+		for(int i = 0; i < charArrIn.length; i++) {
+			if(charArrIn[i] == ' ') {
+				charArrOut[currentCharIndex] = '%';
+				currentCharIndex++;
+				charArrOut[currentCharIndex] = '2';
+				currentCharIndex++;
+				charArrOut[currentCharIndex] = '0';
+				currentCharIndex++;
+			}else {
+				charArrOut[currentCharIndex] = charArrIn[i];
+				currentCharIndex++;
+			}
+		}
+		String stringOut = new String(charArrOut);
+		//trim off whitespace so that strings matched in length.
+		return stringOut.trim();
+	}
 	
 
 }
