@@ -85,5 +85,65 @@ public class ArraysAndStrings {
 		return stringOut.trim();
 	}
 	
+	
+	
+	/*
+	 * 1.4 Palindrome Permutation: Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation
+is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
+EXAMPLE
+Input: Tac t Coa
+Output: Tru e (permutations : "tac o cat" , "atc o eta" , etc. ) 
+
+	 */
+	
+	public boolean isPalindromePerm(String string1) {
+		//need to count the characters. only one character count can be odd (modulus 2 = 1)
+		//count spaces as part of the palindrome to reduce complexity.
+		//use an array of values of all ascii chars 0-128. how to find numerical value of a char in java? cast to integer
+		
+		//NOTES:
+			//45 minutes until passing all tests for palindrome problem.  
+			//Tried to initialize a count array with index values as if the index numbers 
+			//weren't inherently part of the array of size 128. 
+		
+		//OPTIMIZATIONS:
+			//Could sort string first then count chars but not even keep track of them for which char it is, only that its different
+			//this would save space and time
+		
+		//BRUTE FORCE:
+		
+		//declare vars here
+		final int TOTAL_CHARS = 128;
+		int[] charCount = new int[TOTAL_CHARS];
+		int oddCount = 0;
+		
+		//made the following thought mistake until printing out the counts.... 
+		//the array indexes are already numbered idiot
+		/*
+			//initialize character array numbers to keep char count
+			for(int i = 0; i < charCount.length; i++) {
+				charCount[i] = i;
+			}
+		*/
+		
+		//count chars
+		for(int i = 0; i < string1.length(); i++) {
+			//index thru each character in string1, cast to int, the increment charcount array
+			System.out.print(((int) string1.charAt(i)));
+			System.out.println(" " + string1.charAt(i));
+			charCount[((int) string1.charAt(i))]++;
+		}
+		
+		//calculate how many charCounts are odd
+		for(int i = 0; i < charCount.length; i++) {
+			if((charCount[i] % 2) == 1) oddCount++;
+			System.out.println(oddCount);
+			//escapes at first sign of non-palindrome capability
+			if(oddCount > 1)return false;
+		}
+		
+		//string1 is a permutation of a palindrome
+		return true;
+	}
 
 }
