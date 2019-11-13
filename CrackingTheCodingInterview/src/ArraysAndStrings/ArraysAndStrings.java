@@ -183,7 +183,7 @@ public class ArraysAndStrings {
 			// compare the individual letters
 			if (string1.charAt(index1) != string2.charAt(index2)) {
 				editCount++;
-				
+				//
 				//account for string length here
 				if (string1.length() < string2.length()) {
 					index1--;
