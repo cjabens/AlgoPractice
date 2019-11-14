@@ -161,13 +161,11 @@ public class ArraysAndStrings {
 	 * check number of length of each string, if greater the 1 char difference,
 	 * return false
 	 * 
-	 *  check if chars are same one by one, if chars don't match, 
-	 *  up the edit count,
-	 *  index forward in one string to find if there is a match next, do other,
-	 * if niether have a match then index both forward
+	 * check if chars are same one by one, if chars don't match, up the edit count,
+	 * index forward in one string to find if there is a match next, do other, if
+	 * niether have a match then index both forward
 	 * 
-	 *  return false if editCount is more than one
-	 *  less than one return true
+	 * return false if editCount is more than one less than one return true
 	 */
 
 	public boolean isOneAway(String string1, String string2) {
@@ -178,15 +176,15 @@ public class ArraysAndStrings {
 			return false;
 		}
 
-		//keep checking until more than one edit or string length reached
+		// keep checking until more than one edit or string length reached
 		while ((editCount < 2) && (index1 < string1.length()) && (index2 < string2.length())) {
 			// compare the individual letters
 			if (string1.charAt(index1) != string2.charAt(index2)) {
 				editCount++;
-				//account for string length here
+				// account for string length here
 				if (string1.length() < string2.length()) {
 					index1--;
-				} else if(string1.length() > string2.length()) {
+				} else if (string1.length() > string2.length()) {
 					index2--;
 				}
 			}
@@ -202,4 +200,51 @@ public class ArraysAndStrings {
 		}
 	}
 
+	/*
+	 * 1.6 String Compression: Implement a method to perform basic string
+	 * compression using the counts of repeated characters. For example, the string
+	 * aabcccccaaa would become a2blc5a3, If the "compressed" string would not
+	 * become smaller than the original string, your method should return the
+	 * original string. You can assume the string has only uppercase and lowercase
+	 * letters (a - z).
+	 * 
+	 * psuedocode: letters saved can be counted by subtracting 1 when a single char
+	 * is found, and adding n when n = number of repeats > 2 as we index thru
+	 * counting add letter to the "compressed string", when a new letter is found
+	 * add the letter count to the "compressed string" when the string end is found,
+	 * print the number for the last letter return original string if saved letters
+	 * is not > 0
+	 * 
+	 */
+
+	public String compressString(String string1) {
+		if(string1.length() < 3) return string1;
+		
+		int letterCount = 1, i = 1;
+		String compressed = "";
+		char letter, lastLetterConcat = string1.charAt(0);
+		
+		//use while loop
+		while((i < string1.length()) && (compressed.length() < string1.length())) {
+			letter = string1.charAt(i);
+			if (letter != lastLetterConcat) {
+				compressed += lastLetterConcat;
+				compressed += letterCount;
+				letterCount = 1; // reset letter count for new letter
+				lastLetterConcat = letter;
+			} else {
+				letterCount++;
+			}
+			i++;
+		}
+		// concat the last letter counted
+		// This code is used twice, could make a method
+		compressed += lastLetterConcat;
+		compressed += letterCount;
+
+		if (string1.length() <= compressed.length()) {
+			return string1;
+		} else
+			return compressed;
+	}
 }
