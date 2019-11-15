@@ -218,14 +218,15 @@ public class ArraysAndStrings {
 	 */
 
 	public String compressString(String string1) {
-		if(string1.length() < 3) return string1;
-		
+		if (string1.length() < 3)
+			return string1;
+
 		int letterCount = 1, i = 1;
 		String compressed = "";
 		char letter, lastLetterConcat = string1.charAt(0);
-		
-		//use while loop
-		while((i < string1.length()) && (compressed.length() < string1.length())) {
+
+		// use while loop
+		while ((i < string1.length()) && (compressed.length() < string1.length())) {
 			letter = string1.charAt(i);
 			if (letter != lastLetterConcat) {
 				compressed += lastLetterConcat;
@@ -246,5 +247,45 @@ public class ArraysAndStrings {
 			return string1;
 		} else
 			return compressed;
+	}
+
+	/*
+	 * Rotate Matrix: Given an image represented by an NxN matrix, where each pixel
+	 * in the image is 4 bytes, write a method to rotate the image by 90 degrees.
+	 * Can you do this in place? Hints: «51,0100
+	 * 
+	 */
+
+	public int[][] rotateMatrixNinetyDegrees(int[][] matrix) {
+		//NOTE: This method purposely only handles NxN matrices
+		
+		int holder;
+		int N = matrix.length;
+
+		// handle rotation here
+		for (int i = 0; i < N / 2; i++) {
+			for (int j = 0; j < (N-1 - 2 * i); j++) {
+				//a to b
+				holder = matrix[j+i][N - 1 - i];
+				matrix[j+i][N - 1 - i]= matrix[i][j+i];
+				matrix[i][j+i] = holder;
+				
+				//b to c
+				holder = matrix[N - 1 - i][N - 1 - j - i];
+				matrix[N - 1 - i][N - 1 - j - i] = matrix[i][j+i];
+				matrix[i][j+i] = holder;
+				
+				//c  to d, d to a
+				holder = matrix[N - 1 - j - i][i];
+				matrix[N - 1 - j - i][i] = matrix[i][j+i];
+				matrix[i][j+i] = holder;
+
+
+			}
+
+		}
+
+		return matrix;
+
 	}
 }
