@@ -1,5 +1,7 @@
 package ArraysAndStrings;
 
+import java.util.Arrays;
+
 public class ArraysAndStrings {
 	/*
 	 * 1.1 Is Unique: Implement an algorithm to determine if a string has all unique
@@ -249,8 +251,9 @@ public class ArraysAndStrings {
 			return compressed;
 	}
 
+	
 	/*
-	 * Rotate Matrix: Given an image represented by an NxN matrix, where each pixel
+	 * 1.7 Rotate Matrix: Given an image represented by an NxN matrix, where each pixel
 	 * in the image is 4 bytes, write a method to rotate the image by 90 degrees.
 	 * Can you do this in place? Hints: «51,0100
 	 * 
@@ -258,6 +261,10 @@ public class ArraysAndStrings {
 
 	public int[][] rotateMatrixNinetyDegrees(int[][] matrix) {
 		//NOTE: This method purposely only handles NxN matrices
+		//chose to rotate clockwise
+		//ignored the 4 byte pixel size and used integer values for now. 
+		//Could be refactored accordingly.
+		
 		
 		int holder;
 		int N = matrix.length;
@@ -265,6 +272,9 @@ public class ArraysAndStrings {
 		// handle rotation here
 		for (int i = 0; i < N / 2; i++) {
 			for (int j = 0; j < (N-1 - 2 * i); j++) {
+				//If i could reference the array slots with a, b, c, d,
+					//it would save rewritten code
+				
 				//a to b
 				holder = matrix[j+i][N - 1 - i];
 				matrix[j+i][N - 1 - i]= matrix[i][j+i];
@@ -286,6 +296,39 @@ public class ArraysAndStrings {
 		}
 
 		return matrix;
-
 	}
+	
+	
+	
+/*
+ * 1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
+ *  its entire row and column are set to 0. 
+ */
+public int[][] zeroMatrix(int[][] matrix){
+	boolean[] rowsToZero = new boolean[matrix.length];
+	Arrays.fill(rowsToZero, false);
+	boolean[] colsToZero = new boolean[matrix[0].length];
+	Arrays.fill(colsToZero, false);
+	
+	for(int i = 0; i < matrix.length; i++) {
+		for(int j = 0; j < matrix[0].length; j++) {
+			if(matrix[i][j] == 0) {
+				rowsToZero[i] = true;
+				colsToZero[j] = true;
+			}
+		}
+	}
+		
+	for(int i = 0; i < matrix.length; i++) {
+		for(int j = 0; j < matrix[0].length; j++) {
+			if(rowsToZero[i] || colsToZero[j]) {
+				matrix[i][j] = 0;
+			}
+		}
+	}
+	return matrix;
+	}
+	
 }
+	
+	
