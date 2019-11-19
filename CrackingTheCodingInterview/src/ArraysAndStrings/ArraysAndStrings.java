@@ -63,28 +63,35 @@ public class ArraysAndStrings {
 	 * Output: "Mr%203ohn%20Smith"
 	 */
 	
-	//11/18/19 - Josh says I should do in place, so I shall try.
-	public String uRLify(String string1) {
-		// new char array needs to be 3 times the length in case all chars were spaces
-		char[] charArrOut = new char[string1.length() * 3];
-		int currentCharIndex = 0;
-		
-		for (int i = 0; i < string1.length(); i++) {
-			if (string1.charAt(i) == ' ') {
-				charArrOut[currentCharIndex] = '%';
-				currentCharIndex++;
-				charArrOut[currentCharIndex] = '2';
-				currentCharIndex++;
-				charArrOut[currentCharIndex] = '0';
-				currentCharIndex++;
-			} else {
-				charArrOut[currentCharIndex] = string1.charAt(i);
-				currentCharIndex++;
+	public char[] uRLify(char[] string1) {
+		// char array passed in must be large enough to handle the urlified version
+		// no error handling in place for that assumption
+		for (int i = 0; i < string1.length; i++) {
+			if (string1[i] == ' ') {
+				//create space for new chars
+				shiftRightFromIndex(string1, i+1);
+				shiftRightFromIndex(string1, i+2);
+				
+				//insert chars below
+				string1[i] = '%';
+				i++;
+				string1[i] = '2';
+				i++;
+				string1[i] = '0';
+				//eliminate i++ here because test was 
+				//missing the second of two consecutive spaces
 			}
 		}
-		
-		// trim off whitespace so that strings matched in length.
-		return new String(charArrOut).trim();
+		return string1;
+	}
+	
+	private char[] shiftRightFromIndex(char[] array, int index) {
+		//shifts all chars right of index one char slot
+		//last character will be lost, not rotated
+		for(int i = array.length - 1; i > index; i--) {
+			array[i] = array[i-1];
+		}
+		return array;
 	}
 
 	/*
