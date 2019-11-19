@@ -62,14 +62,15 @@ public class ArraysAndStrings {
 	 * you can perform this operation in place.) EXAMPLE Input: "Mr 3ohn Smit h 13
 	 * Output: "Mr%203ohn%20Smith"
 	 */
+	
+	//11/18/19 - Josh says I should do in place, so I shall try.
 	public String uRLify(String string1) {
-		char[] charArrIn = string1.toCharArray();
 		// new char array needs to be 3 times the length in case all chars were spaces
-		char[] charArrOut = new char[charArrIn.length * 3];
+		char[] charArrOut = new char[string1.length() * 3];
 		int currentCharIndex = 0;
-
-		for (int i = 0; i < charArrIn.length; i++) {
-			if (charArrIn[i] == ' ') {
+		
+		for (int i = 0; i < string1.length(); i++) {
+			if (string1.charAt(i) == ' ') {
 				charArrOut[currentCharIndex] = '%';
 				currentCharIndex++;
 				charArrOut[currentCharIndex] = '2';
@@ -77,13 +78,13 @@ public class ArraysAndStrings {
 				charArrOut[currentCharIndex] = '0';
 				currentCharIndex++;
 			} else {
-				charArrOut[currentCharIndex] = charArrIn[i];
+				charArrOut[currentCharIndex] = string1.charAt(i);
 				currentCharIndex++;
 			}
 		}
-		String stringOut = new String(charArrOut);
+		
 		// trim off whitespace so that strings matched in length.
-		return stringOut.trim();
+		return new String(charArrOut).trim();
 	}
 
 	/*
