@@ -62,34 +62,34 @@ public class ArraysAndStrings {
 	 * you can perform this operation in place.) EXAMPLE Input: "Mr 3ohn Smit h 13
 	 * Output: "Mr%203ohn%20Smith"
 	 */
-	
+
 	public char[] uRLify(char[] string1) {
 		// char array passed in must be large enough to handle the urlified version
 		// no error handling in place for that assumption
 		for (int i = 0; i < string1.length; i++) {
 			if (string1[i] == ' ') {
-				//create space for new chars
-				shiftRightFromIndex(string1, i+1);
-				shiftRightFromIndex(string1, i+2);
-				
-				//insert chars below
+				// create space for new chars
+				shiftRightFromIndex(string1, i + 1);
+				shiftRightFromIndex(string1, i + 2);
+
+				// insert chars below
 				string1[i] = '%';
 				i++;
 				string1[i] = '2';
 				i++;
 				string1[i] = '0';
-				//eliminate i++ here because test was 
-				//missing the second of two consecutive spaces
+				// eliminate i++ here because test was
+				// missing the second of two consecutive spaces
 			}
 		}
 		return string1;
 	}
-	
+
 	private char[] shiftRightFromIndex(char[] array, int index) {
-		//shifts all chars right of index one char slot
-		//last character will be lost, not rotated
-		for(int i = array.length - 1; i > index; i--) {
-			array[i] = array[i-1];
+		// shifts all chars right of index one char slot
+		// last character will be lost, not rotated
+		for (int i = array.length - 1; i > index; i--) {
+			array[i] = array[i - 1];
 		}
 		return array;
 	}
@@ -259,45 +259,42 @@ public class ArraysAndStrings {
 			return compressed;
 	}
 
-	
 	/*
-	 * 1.7 Rotate Matrix: Given an image represented by an NxN matrix, where each pixel
-	 * in the image is 4 bytes, write a method to rotate the image by 90 degrees.
-	 * Can you do this in place? Hints: «51,0100
+	 * 1.7 Rotate Matrix: Given an image represented by an NxN matrix, where each
+	 * pixel in the image is 4 bytes, write a method to rotate the image by 90
+	 * degrees. Can you do this in place? Hints: «51,0100
 	 * 
 	 */
 
 	public int[][] rotateMatrixNinetyDegrees(int[][] matrix) {
-		//NOTE: This method purposely only handles NxN matrices
-		//chose to rotate clockwise
-		//ignored the 4 byte pixel size and used integer values for now. 
-		//Could be refactored accordingly.
-		
-		
+		// NOTE: This method purposely only handles NxN matrices
+		// chose to rotate clockwise
+		// ignored the 4 byte pixel size and used integer values for now.
+		// Could be refactored accordingly.
+
 		int holder;
 		int N = matrix.length;
 
 		// handle rotation here
 		for (int i = 0; i < N / 2; i++) {
-			for (int j = 0; j < (N-1 - 2 * i); j++) {
-				//If i could reference the array slots with a, b, c, d,
-					//it would save rewritten code
-				
-				//a to b
-				holder = matrix[j+i][N - 1 - i];
-				matrix[j+i][N - 1 - i]= matrix[i][j+i];
-				matrix[i][j+i] = holder;
-				
-				//b to c
-				holder = matrix[N - 1 - i][N - 1 - j - i];
-				matrix[N - 1 - i][N - 1 - j - i] = matrix[i][j+i];
-				matrix[i][j+i] = holder;
-				
-				//c  to d, d to a
-				holder = matrix[N - 1 - j - i][i];
-				matrix[N - 1 - j - i][i] = matrix[i][j+i];
-				matrix[i][j+i] = holder;
+			for (int j = 0; j < (N - 1 - 2 * i); j++) {
+				// If i could reference the array slots with a, b, c, d,
+				// it would save rewritten code
 
+				// a to b
+				holder = matrix[j + i][N - 1 - i];
+				matrix[j + i][N - 1 - i] = matrix[i][j + i];
+				matrix[i][j + i] = holder;
+
+				// b to c
+				holder = matrix[N - 1 - i][N - 1 - j - i];
+				matrix[N - 1 - i][N - 1 - j - i] = matrix[i][j + i];
+				matrix[i][j + i] = holder;
+
+				// c to d, d to a
+				holder = matrix[N - 1 - j - i][i];
+				matrix[N - 1 - j - i][i] = matrix[i][j + i];
+				matrix[i][j + i] = holder;
 
 			}
 
@@ -305,38 +302,64 @@ public class ArraysAndStrings {
 
 		return matrix;
 	}
-	
-	
-	
-/*
- * 1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
- *  its entire row and column are set to 0. 
- */
-public int[][] zeroMatrix(int[][] matrix){
-	boolean[] rowsToZero = new boolean[matrix.length];
-	Arrays.fill(rowsToZero, false);
-	boolean[] colsToZero = new boolean[matrix[0].length];
-	Arrays.fill(colsToZero, false);
-	
-	for(int i = 0; i < matrix.length; i++) {
-		for(int j = 0; j < matrix[0].length; j++) {
-			if(matrix[i][j] == 0) {
-				rowsToZero[i] = true;
-				colsToZero[j] = true;
+
+	/*
+	 * 1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix
+	 * is 0, its entire row and column are set to 0.
+	 */
+	public int[][] zeroMatrix(int[][] matrix) {
+		boolean[] rowsToZero = new boolean[matrix.length];
+		Arrays.fill(rowsToZero, false);
+		boolean[] colsToZero = new boolean[matrix[0].length];
+		Arrays.fill(colsToZero, false);
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				if (matrix[i][j] == 0) {
+					rowsToZero[i] = true;
+					colsToZero[j] = true;
+				}
 			}
 		}
-	}
-		
-	for(int i = 0; i < matrix.length; i++) {
-		for(int j = 0; j < matrix[0].length; j++) {
-			if(rowsToZero[i] || colsToZero[j]) {
-				matrix[i][j] = 0;
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				if (rowsToZero[i] || colsToZero[j]) {
+					matrix[i][j] = 0;
+				}
 			}
 		}
+		return matrix;
 	}
-	return matrix;
-	}
+
+	/*
+	 * 1.9 String Rotation; Assume you have a method isSubs t rin g which checks if
+	 * one word is a substring of another. Given two strings, si and s2, write code
+	 * to check if s2 is a rotation of si using only one call to isSubs t rin g
+	 * [e.g., "wate r bottle " is a rotation oP'erbottlewat"),
+	 */
+//after a couple hints... duplicate s1 and check if s2 is a substring of s1.
+	//implementing this way would get rid of all the extra madness
 	
+	public boolean checkStringRotation(String s1, String s2, int length) {
+		// check if string lengths match, false if they don't
+
+		// find first character of s1 in s2.
+		int firstCharIndex = 0;
+		int i = 0;
+		boolean charsMatch = false;
+
+		// loop thru strings starting from first char match;
+		while(!charsMatch && (firstCharIndex != -1) && (firstCharIndex < length - 1)) {
+			firstCharIndex = s2.indexOf(s1.charAt(0), firstCharIndex + 1);
+			System.out.println(firstCharIndex);
+			i = 0;
+			do{
+				//use modulo to loop back to 0 when s2 index goes >= to length
+				charsMatch = (s1.charAt(i) == s2.charAt((firstCharIndex + i) % length));
+				i++;
+			}while(i < length && charsMatch);
+		}
+		return charsMatch;
+	}
 }
-	
-	
