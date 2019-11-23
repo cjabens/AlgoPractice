@@ -17,10 +17,10 @@ public class LinkedList {
     }
 
     public Node appendItem(String str) {
-    	throw new Exception("Not yet Implemented")
+    	return head;
 	}
 
-	public Node removeItem(int number) {
-		throw new Exception("Not yet Implemented")
+	public Node removeItem(int number){
+		return head;
 	}
 }
